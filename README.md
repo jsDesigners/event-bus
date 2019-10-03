@@ -130,7 +130,7 @@ let t2 = new TestClass2();
 t2.ready();
 ```
 
-## Using EventBus.off
+## Using EventBus.removeEventListener
 
 To remove an event handler you have to pass the same callback instance.
 
