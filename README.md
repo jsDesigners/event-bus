@@ -68,8 +68,8 @@ console.log(EventBus.debug());
 function myHandler(event) {
   console.log("myHandler eventName=" + event.name);
 }
-EventBus.on("my_event", myHandler);
-EventBus.emit("my_event");
+EventBus.addEventListener("my_event", myHandler);
+EventBus.dispatch("my_event");
 ```
 
 ## Keeping the scope
