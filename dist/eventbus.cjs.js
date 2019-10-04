@@ -15,7 +15,7 @@ class EventBus {
      * @param {object} scope The scope in which the callback shall be executed
      * @param  {...any} args Any number of args to be passed to the callback
      */
-    on(type, callback, scope, ...args) {
+    addEventListener(type, callback, scope, ...args) {
         if (typeof this.events[type] === "undefined") { // Check if there is already event of this type registered
             this.events[type] = []; // If not, create array for it
         }
@@ -28,7 +28,7 @@ class EventBus {
      * @param {function} callback Callback of the event to remove
      * @param {object} scope The scope of the to be removed event
      */
-    off(type, callback, scope) {
+    removeEventListener(type, callback, scope) {
         if (typeof this.events[type] === "undefined") { // Check if event of this type exists
             return; // If not just return
         }
@@ -66,12 +66,12 @@ class EventBus {
     }
 
     /**
-     * Emits an event on the EventBus
-     * @param {string} type Type of event to emit
+     * Emits an event addEventListener the EventBus
+     * @param {string} type Type of event to dispatch
      * @param {object} target The caller 
      * @param {...any} args Any number of args to be passed to the callback
      */
-    emit(type, target, ...args) {
+    dispatch(type, target, ...args) {
         if (typeof this.events[type] === "undefined") { // Check if any event of the passed type exists
             return; // If not, quit method
         }
@@ -100,7 +100,7 @@ class EventBus {
 
 }
 
-const global = new EventBus();
+const eventBus = new EventBus();
 
 exports.EventBus = EventBus;
-exports.global = global;
+exports.eventBus = eventBus;

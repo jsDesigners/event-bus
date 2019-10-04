@@ -1,6 +1,6 @@
 {
-  "name": "eventbus",
-  "description": "Simple ES6-ready class for managing events in JavaScript",
+  "name": "@jsdesigners/event-bus",
+  "description": "The ES6-ready EventBus class for managing events in JavaScript",
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c --watch",

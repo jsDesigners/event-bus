@@ -2,6 +2,10 @@
 
 ## Installation
 
+```bash
+npm install @jsDesigners/event-bus
+```
+
 ### In a browser
 
 Download this repo and copy `src/eventbus.js` into your project's JavaScript asset folder.
@@ -14,52 +18,63 @@ import { EventBus } from '/your_js_assets_folder/eventbus.js';
 You're ready to go.
 
 ## API
-
-### EventBus.`addEventListener`
-
-```js
-// Register EventListner to EventBus  
-// @eventName - the name of event
-// @callback - a handler's function
-// @scope - the scope where the @callback is defined - ?
-// @args - additional arguments
-EventBus.addEventListener(eventName, callback, scope, ...args)
-```
-
-### EventBus.`removeEventListener`
+### EventBus methods:
+#### `addEventListener`
+Add listener to EventBus
 
 ```js
-// Remove EventListener from EventBus
-// @eventName - the name of event
-// @callback - handler's function to remove
-// @scope - the scope where the @callback is defined
-EventBus.removeEventListener(eventName, callback, scope)
+addEventListener(eventName, callback, scope, ...args)
 ```
+| Parameter     | Type          | Requirements   | Description                                 |
+| :--------     | :---------    | :------------- | :------------------------------------------ |
+| `eventName`   | `string`      | **Required**   | the name of event                           |
+| `callback`    | `function`    | **Required**   | a listener's (handler's) function           |
+| `scope`       | `object`      | **Required**   | the scope where the `callback` is defined   |
+| `args`        | `...any`      | **Optional**   | additional arguments                        |
 
-### EventBus.`has`
+----
+#### `removeEventListener`
+Removes listener from EventBus
+```js
+removeEventListener(eventName, callback, scope)
+```
+| Parameter     | Type       | Requirements   | Description                                 |
+| :--------     | :--------- | :------------- | :------------------------------------------ |
+| `eventName`   | `string`   | **Required**   | the name of event                           |
+| `callback`    | `function` | **Required**   | a listener's (handler's) function           |
+| `scope`       | `object`   | **Required**   | the scope where the `callback` is defined   |
+
+---
+#### `has`
+Checks if the passed event is registered in the EventBus
+```js
+has(eventName, callback, scope)
+```
+| Parameter     | Type          | Requirements   | Description                                 |
+| :--------     | :-----------  | :------------- | :------------------------------------------ |
+| `eventName`   | `string`      | **Required**   | the name of event                           |
+| `callback`    | `function`    | **Required**   | a listener's (handler's) function           |
+| `scope`       | `object`      | **Required**   | the scope where the `callback` is defined   |
+
+---
+#### `dispatch`
 
 ```js
-// @eventName - the name of event
-// @callback - handler's function
-// @scope - the scope where the @callback is defined
-EventBus.has(eventName, callback, scope)
+dispatch(eventName, target, ...args)
 ```
+| Parameter     | Type       | Requirements   | Description                                 |
+| :--------     | :--------- | :------------- | :------------------------------------------ |
+| `eventName`   | `string`   | **Required**   | the name of event                           |
+| `target`      | `object`   | **Required**   | a listener's (handler's) function           |
+| `args`        | `...any`   | **Optional**   | the scope where the `callback` is defined   |
 
-### EventBus.`dispatch`
 
-```js
-// @eventName - the name of event
-// @target - the caller (emitter
-// @args - additional arguments
-EventBus.dispatch(eventName, target, ...args)
-```
-
-### EventBus.`debug`
+#### `debug`
 
 For debugging purpose only, it returns the added events as a string.
 
 ```js
-console.log(EventBus.debug());
+console.log(eventBus.debug());
 ```
 
 ## Usage
@@ -68,8 +83,8 @@ console.log(EventBus.debug());
 function myHandler(event) {
   console.log("myHandler eventName=" + event.name);
 }
-EventBus.addEventListener("my_event", myHandler);
-EventBus.dispatch("my_event");
+eventBus.addEventListener("my_event", myHandler);
+eventBus.dispatch("my_event");
 ```
 
 ## Keeping the scope
@@ -78,7 +93,7 @@ EventBus.dispatch("my_event");
 class TestClass1 {
     constructor() {
         this.className = "TestClass1";
-        EventBus.addEventListener("callback_event", this.callback, this);
+        eventBus.addEventListener("callback_event", this.callback, this);
     }
     callback(event) {
         console.log(this.className + " / eventName: " + event.name + " / dispatcher: " + event.target.className);
@@ -90,7 +105,7 @@ class TestClass2 {
         this.className = "TestClass2";
     }
     dispatch() {
-        EventBus.dispatch("callback_event", this);
+        eventBus.dispatch("callback_event", this);
     }
 }
 
@@ -105,7 +120,7 @@ t2.dispatch();
 class TestClass1 {
     constructor() {
         this.className = "TestClass1";
-        EventBus.addEventListener("custom_event", this.doSomething, this);
+        eventBus.addEventListener("custom_event", this.doSomething, this);
     }
     doSomething(event, param1, param2) {
         console.log(this.className + ".doSomething");
@@ -120,7 +135,7 @@ class TestClass2 {
         this.className = "TestClass2";
     }
     ready() {
-        EventBus.dispatch("custom_event", this, "javascript events", " are really useful");
+        eventBus.dispatch("custom_event", this, "javascript events", " are really useful");
     }
 }
 
@@ -137,10 +152,10 @@ To remove an event handler you have to pass the same callback instance.
 This is wrong and won't work because callback functions are different functions.
 
 ```js
-EventBus.addEventListener('EXAMPLE_EVENT', function() {
+eventBus.addEventListener('EXAMPLE_EVENT', function() {
     console.log('example callback');
 });
-EventBus.removeEventListener('EXAMPLE_EVENT', function() {
+eventBus.removeEventListener('EXAMPLE_EVENT', function() {
     console.log('example callback');
 });
 ```
@@ -151,11 +166,11 @@ This is correct. Our callback function is the same function.
 var handler = function() {
     console.log('example callback');
 };
-EventBus.addEventListener('EXAMPLE_EVENT', handler);
-EventBus.dispatch('EXAMPLE_EVENT');
-EventBus.removeEventListener('EXAMPLE_EVENT', handler);
+eventBus.addEventListener('EXAMPLE_EVENT', handler);
+eventBus.dispatch('EXAMPLE_EVENT');
+eventBus.removeEventListener('EXAMPLE_EVENT', handler);
 // Not dispatched since event was removed
-EventBus.dispatch('EXAMPLE_EVENT');
+eventBus.dispatch('EXAMPLE_EVENT');
 ```
 
 ## Examples
@@ -170,3 +185,64 @@ For example the built in PHP server:
 Now, open <http://localhost:9999/examples/> in your browser.
 
 In the Console of Chrome DevTools you should see a few log entries.
+
+# Authors:
+
+This project is forked from [tbreuss/eventbus](https://github.com/tbreuss/eventbus)
+And modified by [jsDesigners](https://github.com/jsDesigners) to be more CleanCode
+(Naming of methods)
+
+## Changelog
+
+### Changed 
+- Renamed methods in `EventBus` class
+- Renamed or removed global variable from exports.
+  The EventBus class should be exported instead of using global variables. 
+  EventBus should be created as service (and/or to be a singleton) in code and should be used by dependency injection
+  instead of new objects.
+- Pushed to npm package repository and tagged with version to more comfortable using in other
+  projects.
+  
+### In near Future ideas:
+- Minimize methods arguments and add ability to pass an EventObject to methods instead of 
+multiple arguments like below:
+
+```js
+class AddUserToGroupButtonClickedEvent extends CustomEvent {
+    constructor(target) {
+        super();
+        this.name = 'add.user.to.group.clicked.event';       
+        this.target = target;
+    }
+}
+// ...
+class UserLoggedEvent extends CustomEvent{
+    constructor(target, userId) {
+        super();
+        this.name = 'user_logged_event';       
+        this.target = target;
+        this.userId = userId;            
+    }
+}
+// ...
+function handleClick(event) {
+    this.eventBus.dispatch(new AddUserToGroupButtonClickedEvent(this))
+}
+// ...
+function handleLogin(event) {
+    this.eventBus.dispatch(new UserLoggedEvent(this, 'X5Y6Z7-Q1W2E3R4T5U8I9-HQF'))
+}
+```
+
+or
+
+```js
+function handleLogin(event) {
+    this.eventBus.dispatch({
+        name: 'AddUserToGroupButtonClicked',
+        caller: this,
+        arguments: {userId: 'X5Y6Z7-Q1W2E3R4T5U8I9-HQF'}
+    });
+}
+```
+```

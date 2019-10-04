@@ -8,23 +8,25 @@
 
 <script type="module">
 
-    import {global as globalBus} from '/dist/eventbus.esm.js';
+    import { EventBus } from '/dist/eventbus.esm.js';
 
+    let eventBus = new EventBus();
     // Simple example
     {
         function myHandler(event) {
             console.log("myHandler / type: " + event.type);
         }
-        globalBus.on("my_event", myHandler);
-        globalBus.emit("my_event");
+
+        eventBus.addEventListener("my_event", myHandler);
+        eventBus.dispatch("my_event");
     }
 
     // Keeping the scope
     {
         class TestClass1 {
-            constructor() {
+            constructor(eventBus) {
                 this.className = "TestClass1";
-                globalBus.on("callback_event", this.callback, this);
+                eventBus.on("callback_event", this.callback, this);
             }
 
             callback(event) {
@@ -33,12 +35,14 @@
         }
 
         class TestClass2 {
-            constructor() {
+
+            constructor(eventBus) {
                 this.className = "TestClass2";
+                this.eventBus = eventBus;
             }
 
             dispatch() {
-                globalBus.emit("callback_event", this);
+                this.eventBus.emit("callback_event", this);
             }
         }
 
@@ -50,9 +54,9 @@
     // Passing additional parameters
     {
         class TestClass1 {
-            constructor() {
+            constructor(eventBus) {
                 this.className = "TestClass1";
-                globalBus.on("custom_event", this.doSomething, this);
+                eventBus.on("custom_event", this.doSomething, this);
             }
             doSomething(event, param1, param2) {
                 console.log(this.className + ".doSomething");
@@ -63,11 +67,12 @@
         }
 
         class TestClass2 {
-            constructor() {
+            constructor(eventBus) {
                 this.className = "TestClass2";
+                this.eventBus = eventBus;
             }
             ready() {
-                globalBus.emit("custom_event", this, "javascript events", " are really useful");
+                this.eventBus.dispatch("custom_event", this, "javascript events", " are really useful");
             }
         }
 
@@ -78,18 +83,18 @@
     }
 
     // Debugging
-    console.log(globalBus.debug());
+    console.log(eventBus.debug());
 
     // Removing a registered handler
     {
         var handler = function() {
             console.log('example callback');
         };
-        globalBus.on('EXAMPLE_EVENT', handler);
-        globalBus.emit('EXAMPLE_EVENT');
-        globalBus.off('EXAMPLE_EVENT', handler);
+        eventBus.addEventListener('EXAMPLE_EVENT', handler);
+        eventBus.dispatch('EXAMPLE_EVENT');
+        eventBus.removeEventListener('EXAMPLE_EVENT', handler);
         // Not emitted because event was removed
-        globalBus.emit('EXAMPLE_EVENT');
+        eventBus.dispatch('EXAMPLE_EVENT');
     }
 </script>
 </body>
