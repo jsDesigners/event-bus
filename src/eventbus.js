@@ -4,6 +4,10 @@ export class EventBus {
         this.events = {};
     }
 
+    static create() {
+        return eventBus;
+    }
+
     /**
      * Adds listener to EventBus
      * @param {string} eventName The name of the event to listen for
@@ -95,5 +99,5 @@ export class EventBus {
     }
 
 }
-
+const eventBus = new EventBus();
 export default EventBus;

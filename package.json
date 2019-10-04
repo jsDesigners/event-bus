@@ -10,5 +10,29 @@
     "ava": "^2.2.0",
     "rollup": "^1.19.0",
     "rollup-plugin-terser": "^5.1.0"
-  }
+  },
+  "version": "1.0.0",
+  "main": "rollup.config.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsDesigners/event-bus.git"
+  },
+  "keywords": [
+    "EventBus",
+    "Bus",
+    "Event",
+    "'Event",
+    "Bus'",
+    "Pattern"
+  ],
+  "author": "maveilthain@gmail.com",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/jsDesigners/event-bus/issues"
+  },
+  "homepage": "https://github.com/jsDesigners/event-bus#readme"
 }

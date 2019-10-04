@@ -10,7 +10,7 @@
 
     import { EventBus } from '/dist/eventbus.esm.js';
 
-    let eventBus = new EventBus();
+    let eventBus = EventBus.create();
     // Simple example
     {
         function myHandler(event) {

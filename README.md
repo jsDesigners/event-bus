@@ -17,6 +17,17 @@ import { EventBus } from '/your_js_assets_folder/eventbus.js';
 
 You're ready to go.
 
+# Usage
+
+```js
+class YourClassName {
+    constructor() {
+        this.eventBus = EventBus.create();  
+    }
+}
+
+```
+
 ## API
 ### EventBus methods:
 #### `addEventListener`
