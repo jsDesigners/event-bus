@@ -34,49 +34,45 @@ class YourClassName {
 Add listener to EventBus
 
 ```js
-addEventListener(eventName, callback, scope, ...args)
+addEventListener(eventName, callback, ...args)
 ```
 | Parameter     | Type          | Requirements   | Description                                 |
 | :--------     | :---------    | :------------- | :------------------------------------------ |
 | `eventName`   | `string`      | **Required**   | the name of event                           |
 | `callback`    | `function`    | **Required**   | a listener's (handler's) function           |
-| `scope`       | `object`      | **Required**   | the scope where the `callback` is defined   |
 | `args`        | `...any`      | **Optional**   | additional arguments                        |
 
 ----
 #### `removeEventListener`
 Removes listener from EventBus
 ```js
-removeEventListener(eventName, callback, scope)
+removeEventListener(eventName, callback)
 ```
 | Parameter     | Type       | Requirements   | Description                                 |
 | :--------     | :--------- | :------------- | :------------------------------------------ |
 | `eventName`   | `string`   | **Required**   | the name of event                           |
 | `callback`    | `function` | **Required**   | a listener's (handler's) function           |
-| `scope`       | `object`   | **Required**   | the scope where the `callback` is defined   |
 
 ---
 #### `has`
 Checks if the passed event is registered in the EventBus
 ```js
-has(eventName, callback, scope)
+has(eventName, callback)
 ```
 | Parameter     | Type          | Requirements   | Description                                 |
 | :--------     | :-----------  | :------------- | :------------------------------------------ |
 | `eventName`   | `string`      | **Required**   | the name of event                           |
 | `callback`    | `function`    | **Required**   | a listener's (handler's) function           |
-| `scope`       | `object`      | **Required**   | the scope where the `callback` is defined   |
 
 ---
 #### `dispatch`
 
 ```js
-dispatch(eventName, target, ...args)
+dispatch(eventName, ...args)
 ```
 | Parameter     | Type       | Requirements   | Description                                 |
 | :--------     | :--------- | :------------- | :------------------------------------------ |
 | `eventName`   | `string`   | **Required**   | the name of event                           |
-| `target`      | `object`   | **Required**   | a listener's (handler's) function           |
 | `args`        | `...any`   | **Optional**   | the scope where the `callback` is defined   |
 
 

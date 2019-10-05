@@ -63,6 +63,6 @@ test('can check if any handlers exists', t => {
 
 test('can dispatch a debug string', t => {
   t.context.bus.addEventListener('EXAMPLE_EVENT', () => console.log(1));
-  t.context.bus.addEventListener('EXAMPLE_EVENT', () => console.log(1), new class Foo {});
-  t.is(t.context.bus.debug(), `Anonymous listening for "EXAMPLE_EVENT"\nFoo listening for "EXAMPLE_EVENT"\n`);
+  t.context.bus.addEventListener('EXAMPLE_EVENT', () => console.log(1));
+  t.is(t.context.bus.debug(), `Anonymous listening for "EXAMPLE_EVENT"\nAnonymous listening for "EXAMPLE_EVENT"\n`);
 });
