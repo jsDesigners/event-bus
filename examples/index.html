@@ -26,7 +26,7 @@
         class TestClass1 {
             constructor(eventBus) {
                 this.className = "TestClass1";
-                eventBus.on("callback_event", this.callback, this);
+                eventBus.addEventListener("callback_event", this.callback);
             }
 
             callback(event) {
@@ -42,7 +42,7 @@
             }
 
             dispatch() {
-                this.eventBus.emit("callback_event", this);
+                this.eventBus.dispatch("callback_event", this);
             }
         }
 
@@ -56,7 +56,7 @@
         class TestClass1 {
             constructor(eventBus) {
                 this.className = "TestClass1";
-                eventBus.on("custom_event", this.doSomething, this);
+                eventBus.addEventListener("custom_event", this.doSomething);
             }
             doSomething(event, param1, param2) {
                 console.log(this.className + ".doSomething");
