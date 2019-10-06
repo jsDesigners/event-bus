@@ -119,7 +119,7 @@ class EventBus {
 
         for (const listener of listeners) { // Iterate all events
             if (listener && listener.callback) { // Check if callback of event is set
-                listener.scope = listener.callback.apply(listener.callback, [...args, ...listener.callbackArguments]);
+                listener.scope = listener.callback.apply(listener.callback, [event, ...args, ...listener.callbackArguments]);
             }
         }
     }
