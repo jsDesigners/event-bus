@@ -1,6 +1,5 @@
 import test from 'ava';
-import { EventBus } from './dist/eventbus.cjs';
-import {NamedEvent} from "./dist/model/NamedEvent.cjs";
+import { EventBus, NamedEvent } from './eventbus';
 
 
 
@@ -142,4 +141,21 @@ test('can dispatch NamedEvent a debug string', t => {
     t.context.bus.addEventListener(namedEvent, () => console.log(1));
     t.context.bus.addEventListener('EXAMPLE_EVENT', () => console.log(1));
     t.is(t.context.bus.debug(), `Anonymous listening for "EXAMPLE_EVENT"\nAnonymous listening for "EXAMPLE_EVENT"\n`);
+});
+
+test('can NamedEvent have getName method', t => {
+    let namedEvent = new NamedEvent('EXAMPLE_EVENT');
+    t.context.bus.addEventListener(namedEvent, () => console.log(1));
+    t.is(namedEvent.getName(), 'EXAMPLE_EVENT');
+});
+
+test('can InheritedEvent have getName method', t => {
+    class InheritedEvent extends NamedEvent {
+        constructor() {
+            super('InheritedEvent');
+        }
+    }
+    let inherited = new InheritedEvent();
+    t.context.bus.addEventListener(inherited, () => console.log(1));
+    t.is(inherited.getName(), 'InheritedEvent');
 });

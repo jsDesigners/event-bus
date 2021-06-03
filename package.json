@@ -1,22 +1,25 @@
 {
   "name": "@jsdesigners/event-bus",
   "description": "The ES6-ready EventBus class for managing events in JavaScript",
+  "ava": {
+    "babel": true
+  },
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c --watch",
     "test": "ava"
   },
   "devDependencies": {
-    "ava": "^2.2.0",
-    "rollup": "^1.19.0",
-    "rollup-plugin-terser": "^5.1.0"
+    "@ava/babel": "^1.0.1",
+    "ava": "^3.15.0",
+    "rollup": "^2.50.6",
+    "rollup-plugin-terser": "^7.0.2"
   },
   "version": "1.1.1",
   "main": "rollup.config.js",
   "directories": {
     "example": "examples"
   },
-  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jsDesigners/event-bus.git"

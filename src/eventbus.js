@@ -19,13 +19,16 @@ export class EventBus {
         if (typeof event === 'string') {
             return  new NamedEvent(event);
         }
+        if (typeof event === "function") {
+            event.getName = event.prototype.getName
+        }
 
         return event;
     }
 
     /**
      * Adds listener to EventBus
-     * @param {string|NamedEvent} event The name or NameEvent instance of the event to listen for
+     * @param {string|NamedEvent|function} event The name or NameEvent instance of the event to listen for
      * @param {function} callback Callback to call when event was triggered
      * @param  {...*} args Any number of args to be passed to the callback
      */
@@ -122,3 +125,4 @@ export class EventBus {
 
 const eventBus = new EventBus();
 export default EventBus;
+export {NamedEvent};
