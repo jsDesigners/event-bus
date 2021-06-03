@@ -20,7 +20,7 @@ export class EventBus {
             return  new NamedEvent(event);
         }
         if (typeof event === "function") {
-            event.getName = () => event.constructor.name
+            event.getName = () => event.name
         }
 
         return event;

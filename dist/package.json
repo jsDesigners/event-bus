@@ -15,7 +15,7 @@
     "rollup": "^2.50.6",
     "rollup-plugin-terser": "^7.0.2"
   },
-  "version": "2.0.1",
+  "version": "2.0.2",
   "main": "rollup.config.js",
   "directories": {
     "example": "examples"
